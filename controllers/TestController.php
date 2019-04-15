@@ -57,11 +57,6 @@ class TestController extends Controller
         _log($rowsInUser);
 
 
-//        return VarDumper::dumpAsString($product->attributes(),4,true);
-//        return VarDumper::dumpAsString($product->validate());
-//        $product->validate();
-//        return VarDumper::dumpAsString($product->safeAttributes(),4,true);
-
         $service = \Yii::$app->test->run();
         $product = new Product([
             'id' => 1,
