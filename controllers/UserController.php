@@ -126,10 +126,16 @@ class UserController extends Controller
     }
 
     /**
-     *
+     * home work
      */
     public function actionTest()
     {
-
+        //используя ActiveRecord (метод класса User) создадим запись в таблице user
+        $user = new User();
+        $user->username = 'George';
+        $user->password_hash = 'password-4';
+        $user->creator_id = '4';
+        $user->created_at = time();
+        $user->save();
     }
 }
