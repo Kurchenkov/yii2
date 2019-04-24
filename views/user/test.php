@@ -6,16 +6,13 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'Test User';
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
 
@@ -29,18 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'password_hash',
             'auth_key',
             'creator_id',
-            //'updater_id',
-            //'created_at',
-            //'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
     <?php Pjax::end(); ?>
-
-    <p>
-        <?= Html::a( 'Test User', ['test'], ['class' => 'btn btn-success']) ?>
-    </p>
 
 </div>
