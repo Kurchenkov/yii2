@@ -19,9 +19,13 @@ use Yii;
  * @property Task[] $tasks
  * @property Task[] $tasks0
  * @property TaskUser[] $taskUsers
+ * @property Task[] $accessedTasks
  */
 class User extends \yii\db\ActiveRecord
 {
+    const RELATION_TASK_USERS = 'taskUsers';
+    const RELATION_ACCESSED_TASKS = 'accessedTasks';
+
     /**
      * {@inheritdoc}
      */
@@ -81,6 +85,15 @@ class User extends \yii\db\ActiveRecord
     public function getTaskUsers()
     {
         return $this->hasMany(TaskUser::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccessedTasks()
+    {
+        return $this->hasMany(Task::className(), ['id' => 'task_id'])
+            ->via(self::RELATION_TASK_USERS);
     }
 
     /**
