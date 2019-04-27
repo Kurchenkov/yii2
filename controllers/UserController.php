@@ -6,8 +6,11 @@ use Yii;
 use app\models\User;
 use app\models\Task;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
+use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -22,6 +25,15 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -66,6 +78,10 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        if(Yii::$app->user->id != 22) {
+            throw new ForbiddenHttpException('Только админ!');
+        }
+
         $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -132,19 +148,10 @@ class UserController extends Controller
      */
     public function actionTest()
     {
-//        $task = new Task();
-//        $task->title = 'task_test_2';
-//        $task->description = 'study update_false';
-//        $task->value;
-//        //$task->creator_id = 1;
-//        $task->save();
+        $task = Task::findOne(21);
+        $task->title = 'task_change';
+        $task->save();
 
-
-//        $user = new User();
-//        $user->username = 'Fedor';
-//        $user->password_hash = 'some_password';
-//        $user->creator_id = 10;
-//        $user->save();
 
 
         $dataProvider = new ActiveDataProvider([
