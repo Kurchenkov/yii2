@@ -1,5 +1,7 @@
 <?php
 
+use yii\log\FileTarget;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -40,6 +42,13 @@ $config = [
                 [
                     'class' => yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => yii\log\FileTarget::class,
+                    'levels' => ['info'],
+                    'categories' => ['login'],
+                    'logFile' => "@runtime/logs/login.log",
+                    'logVars' => [],
                 ],
             ],
         ],
