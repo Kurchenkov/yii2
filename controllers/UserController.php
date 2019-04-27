@@ -150,11 +150,8 @@ class UserController extends Controller
      */
     public function actionTest()
     {
-        $task = Task::findOne(21);
-        $task->title = 'task_change';
-        $task->save();
 
-
+        //Yii::info('authentication passed', 'login');
 
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
