@@ -29,6 +29,7 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    public $password;
     const RELATION_TASK_USERS = 'taskUsers';
     const RELATION_ACCESSED_TASKS = 'accessedTasks';
 
@@ -38,18 +39,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return 'user';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['username', 'password_hash'], 'required'],
-            [['creator_id', 'updater_id', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'password_hash', 'auth_key'], 'string', 'max' => 255],
-        ];
     }
 
     public function behaviors()
@@ -63,6 +52,34 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
                 'createdByAttribute' => 'creator_id',
                 'updatedByAttribute' => 'updater_id'
             ]
+        ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+             return false;
+        }
+
+        if ($this->password) {
+            $this->password_hash = \Yii::$app->security->generatePasswordHash($this->password);
+        }
+        if ($this->isNewRecord) {
+            $this->auth_key = \Yii::$app->security->generateRandomString();
+        }
+
+     return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'password'], 'required'],
+            [['creator_id', 'updater_id', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key'], 'string', 'max' => 255],
         ];
     }
 
