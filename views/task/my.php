@@ -29,8 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => [],
-                'buttons' => []
+                'template' => '{view} {update} {delete} {share}',
+                'buttons' => [
+                    'share' => function ($url, $model, $key) {
+                                $icon = \yii\bootstrap\Html::icon('share');
+                                return Html::a($icon, ['task-user/create', 'taskId' => $model->id]);
+                             },
+                ]
             ],
         ],
     ]); ?>
