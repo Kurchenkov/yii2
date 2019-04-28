@@ -151,24 +151,6 @@ class UserController extends Controller
      */
     public function actionTest()
     {
-//        $key = 'key';
-//        if(\Yii::$app->cache->exists($key)){
-//            $data = \Yii::$app->cache->get($key);
-//        }
-//        else
-//           {
-//             $data = data();
-//             \Yii::$app->cache->set($key, $data);
-//           }
-//
-//        $key = ['user', $id];
-//        $fileName = 'fileName';
-//
-//        if(!($data = \Yii::$app->cache->get($key))){
-//            $data = file_get_contents($fileName);
-//            \Yii::$app->cache->set($key, $data, 3600, new FileDependency(['fileName' => $fileName]));
-//        }
-
 
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
