@@ -79,7 +79,7 @@ class TaskUserController extends Controller
     public function actionCreate($taskId)
     {
         $model = Task::findOne($taskId);
-        if ($model->creator_id !== Yii::$app->user->id || !$model){
+        if (!$model || $model->creator_id !== Yii::$app->user->id){
             throw new ForbiddenHttpException('');
         }
 
