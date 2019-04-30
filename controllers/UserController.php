@@ -151,7 +151,11 @@ class UserController extends Controller
      */
     public function actionTest()
     {
-        _end(\yii\helpers\Url::toRoute(['task/view', 'id' => 1]));
+        //_end(\yii\helpers\Url::to(['@help'], true));
+
+//        _end(\Yii::t('yii',
+//            '"{attribute}" does not support operator "{operator}".',
+//            ['operator' => 1, 'attribute' => 2]));
 
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),

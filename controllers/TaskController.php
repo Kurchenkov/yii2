@@ -61,6 +61,46 @@ class TaskController extends Controller
     }
 
     /**
+     * List of our tasks available to other users.
+     * @return mixed
+     */
+    public function actionShared()
+    {
+        $query = Task::find()
+            ->byCreator(Yii::$app->user->id)
+            ->innerJoinWith(Task::RELATION_TASK_USERS);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $dataProvider->pagination->pageSize = 5;
+
+        return $this->render('shared', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * List of tasks of other users available to us.
+     * @return mixed
+     */
+    public function actionAccessed()
+    {
+        $query = Task::find()
+            ->innerJoinWith(Task::RELATION_TASK_USERS)
+            ->where('user_id' == Yii::$app->user->id);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $dataProvider->pagination->pageSize = 5;
+
+        return $this->render('accessed', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single Task model.
      * @param integer $id
      * @return mixed
