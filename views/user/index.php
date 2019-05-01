@@ -39,8 +39,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::end(); ?>
 
-    <p>
-        <?= Html::a( 'Test User', ['test'], ['class' => 'btn btn-success']) ?>
-    </p>
-
 </div>
