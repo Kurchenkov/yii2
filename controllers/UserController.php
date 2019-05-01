@@ -149,22 +149,15 @@ class UserController extends Controller
     /**
      * home work
      */
-    public function actionTest()
-    {
-        //_end(\yii\helpers\Url::to(['@help'], true));
-
-//        _end(\Yii::t('yii',
-//            '"{attribute}" does not support operator "{operator}".',
-//            ['operator' => 1, 'attribute' => 2]));
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-        ]);
-
-        return $this->render('test', [
-            'dataProvider' => $dataProvider,
-        ]);
-
-
-    }
+//    public function actionTest()
+//    {
+//
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => User::find(),
+//        ]);
+//
+//        return $this->render('test', [
+//            'dataProvider' => $dataProvider,
+//        ]);
+//    }
 }

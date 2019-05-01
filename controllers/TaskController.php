@@ -73,7 +73,6 @@ class TaskController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $dataProvider->pagination->pageSize = 5;
 
         return $this->render('shared', [
             'dataProvider' => $dataProvider,
@@ -88,16 +87,16 @@ class TaskController extends Controller
     {
         $query = Task::find()
             ->innerJoinWith(Task::RELATION_TASK_USERS)
-            ->where('user_id' == Yii::$app->user->id);
+            ->where(['user_id' => Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $dataProvider->pagination->pageSize = 5;
 
         return $this->render('accessed', [
             'dataProvider' => $dataProvider,
         ]);
+
     }
 
     /**

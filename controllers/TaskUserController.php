@@ -104,6 +104,25 @@ class TaskUserController extends Controller
     }
 
     /**
+     * Unshare tasks by current user.
+     * If unshare is successful, the browser will be redirected to the 'shared' page.
+     * @return mixed
+     */
+    public function actionUnshareAll($taskId)
+    {
+        $model = Task::findOne($taskId);
+        if (!$model || $model->creator_id !== Yii::$app->user->id){
+            throw new ForbiddenHttpException();
+        }
+
+        $model->unlinkAll(Task::RELATION_ACCESSED_USERS, true);
+
+        Yii::$app->session->setFlash('success','Unshare success');
+
+        return $this->redirect(['task/shared']);
+    }
+
+    /**
      * Updates an existing TaskUser model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
