@@ -38,9 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'unshare' => function ($url, $model, $key) {
                         $icon = \yii\bootstrap\Html::icon('remove');
                         return Html::a($icon, ['task-user/unshare-all', 'taskId' => $model->id], [
+                            'title' => 'Unshared all',
                             'data' => [
-                                'confirm' => 'Unshare all?',
-                                'method' => 'post',
+                                    'confirm' => 'Unshare all?',
+                                    'method' => 'post',
                             ],
                         ]);
                     },

@@ -33,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'share' => function ($url, $model, $key) {
                                 $icon = \yii\bootstrap\Html::icon('share');
-                                return Html::a($icon, ['task-user/create', 'taskId' => $model->id]);
+                                return Html::a($icon, ['task-user/create', 'taskId' => $model->id], [
+                                        'title' => 'Share',
+                                ]);
                              },
                 ]
             ],
